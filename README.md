@@ -39,7 +39,7 @@ Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-git
   svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
 
 ```json
 ...
@@ -84,7 +84,7 @@ After clone the repo link `dist` in `taiga-front` plugins directory:
   ln -s ../../../taiga-contrib-github-auth/dist github-auth
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
 
 ```json
 ...
