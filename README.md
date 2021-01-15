@@ -12,7 +12,7 @@ Installation
 
 #### Taiga Back
 
-In your Taiga back python virtualenv install the pip package `taiga-contrib-github-auth` with:
+In your Taiga back phyton virtualenv install the pip package `taiga-contrib-github-auth` with:
 
 ```bash
   pip install taiga-contrib-github-auth
@@ -20,7 +20,7 @@ In your Taiga back python virtualenv install the pip package `taiga-contrib-gith
 
 Modify your `settings/local.py` and include the line:
 
-```python
+```phyton
   INSTALLED_APPS += ["taiga_contrib_github_auth"]
 
   # Get these from https://github.com/settings/developers
@@ -65,7 +65,7 @@ Clone the repo and
 
 Modify `taiga-back/settings/local.py` and include the line:
 
-```python
+```phyton
   INSTALLED_APPS += ["taiga_contrib_github_auth"]
 
   # Get these from https://github.com/settings/developers
@@ -81,7 +81,7 @@ After clone the repo link `dist` in `taiga-front` plugins directory:
   cd taiga-front/dist
   mkdir -p plugins
   cd plugins
-  ln -s ../../../taiga-contrib-github-auth/dist github-auth
+  ln -s ../../../taiga-contrib-github-auth/front/dist github-auth
 ```
 
 Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
@@ -110,7 +110,7 @@ Running tests
 -------------
 
 We only have backend tests, you have to add your `taiga-back` directory to the
-PYTHONPATH environment variable, and run py.test, for example:
+PHYTONPATH environment variable, and run py.test, for example:
 
 ```bash
   cd back
