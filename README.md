@@ -8,23 +8,31 @@ The Taiga plugin for github authentication.
 
 ## Production env
 
-### Taiga Back
+Take the latest release of this repository, for instance:
 
-In your Taiga back phyton virtualenv install the pip package `taiga-contrib-github-auth` with:
-
-```bash
-  pip install taiga-contrib-github-auth
+```
+export TAIGA_CONTRIB_GITHUB_AUTH_TAG=6.0.0
 ```
 
-Modify your `settings/local.py` and include the line:
+### Taiga Back
 
-```phyton
+Activate your virtualenv and install this package:
+
+```bash
+pip install "git+https://github.com/taigaio/taiga-contrib-github-auth.git@${TAIGA_CONTRIB_GITHUB_AUTH_TAG}#egg=taiga-contrib-github-auth&subdirectory=back"
+```
+
+Modify your `settings/config.py` and include the line:
+
+```python
   INSTALLED_APPS += ["taiga_contrib_github_auth"]
 
   # Get these from https://github.com/settings/developers
   GITHUB_API_CLIENT_ID = "YOUR-GITHUB-CLIENT-ID"
   GITHUB_API_CLIENT_SECRET = "YOUR-GITHUB-CLIENT-SECRET"
 ```
+
+**Tip** the callback url in the Github configuration should be the same as the `TAIGA_URL` environment variable.
 
 ### Taiga Front
 
@@ -34,7 +42,7 @@ Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-git
   cd dist/
   mkdir -p plugins
   cd plugins
-  svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/$(pip show taiga-contrib-github-auth | awk '/^Version: /{print $2}')/front/dist"  "github-auth"
+  svn export "https://github.com/taigaio/taiga-contrib-github-auth/tags/${TAIGA_CONTRIB_GITHUB_AUTH_TAG}/front/dist"  "github-auth"
 ```
 
 Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
@@ -50,6 +58,8 @@ Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugi
 ```
 
 ## Dev env
+
+This configuration should be used only if you're developing this library.
 
 ### Taiga Back
 
