@@ -17,7 +17,7 @@ setup(
     keywords = 'taiga, github, auth, plugin',
     author = 'Jesús Espino García',
     author_email = 'jesus.espino@kaleidos.net',
-    url = 'https://github.com/taigaio/taiga-contrib-github-auth',
+    url = 'https://github.com/kaleidos-ventures/taiga-contrib-github-auth',
     license = 'MPL-2',
     include_package_data = True,
     packages = find_packages(),
