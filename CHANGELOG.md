@@ -2,7 +2,7 @@
 
 ## 6.3.1 (unreleased)
 
-- ...
+- Serve Taiga in subpath
 
 ## 6.3.0 (unreleased)
 
