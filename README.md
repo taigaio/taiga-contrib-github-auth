@@ -44,14 +44,14 @@ Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-git
   svn export "https://github.com/kaleidos-ventures/taiga-contrib-github-auth/tags/${TAIGA_CONTRIB_GITHUB_AUTH_TAG}/front/dist"  "github-auth"
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
 
 ```json
 ...
     "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
     "contribPlugins": [
         (...)
-        "/plugins/github-auth/github-auth.json"
+        "plugins/github-auth/github-auth.json"
     ]
 ...
 ```
@@ -91,14 +91,14 @@ After clone the repo link `dist` in `taiga-front` plugins directory:
   ln -s ../../../taiga-contrib-github-auth/front/dist github-auth
 ```
 
-Include in your `dist/conf.json` in the 'contribPlugins' list the value `"/plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
+Include in your `dist/conf.json` in the 'contribPlugins' list the value `"plugins/github-auth/github-auth.json"` and the `gitHubClientId`:
 
 ```json
 ...
     "gitHubClientId": "YOUR-GITHUB-CLIENT-ID",
     "contribPlugins": [
         (...)
-        "/plugins/github-auth/github-auth.json"
+        "plugins/github-auth/github-auth.json"
     ]
 ...
 ```

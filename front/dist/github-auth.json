@@ -5,5 +5,5 @@
     "type": "auth",
     "module": "taigaContrib.githubAuth",
     "template": "/plugins/github-auth/github-auth.html",
-    "js": "/plugins/github-auth/github-auth.js"
+    "js": "plugins/github-auth/github-auth.js"
 }
