@@ -34,7 +34,7 @@ gulp.task('compile', function () {
     .pipe($.jade({ pretty: true }))
     .pipe($.angularTemplatecache({
       transformUrl: function (url) {
-        return '/plugins/github-auth/' + url;
+        return '/plugins/github-auth' + url;
       }
     }))
     .pipe($.remember('jade'));
