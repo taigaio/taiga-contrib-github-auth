@@ -34,6 +34,11 @@ Modify your `settings/config.py` and include the line:
 
 **Tip** the callback url in the Github configuration should be the same as the `TAIGA_URL` environment variable.
 
+New GitHub identities must provide a primary and verified email address. This
+requirement applies both when creating a Taiga user and when linking an existing
+Taiga account by email. Existing identities already linked continue to
+authenticate without rechecking the email.
+
 ### Taiga Front
 
 Download in your `dist/plugins/` directory of Taiga front the `taiga-contrib-github-auth` compiled code (you need subversion in your system):

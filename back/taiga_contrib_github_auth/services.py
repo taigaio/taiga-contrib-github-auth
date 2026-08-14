@@ -13,6 +13,7 @@ from django.apps import apps
 
 from taiga.base.utils.slug import slugify_uniquely
 from taiga.base import exceptions as exc
+from taiga.auth.exceptions import AuthenticationFailed
 from taiga.auth.services import send_register_email
 from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
@@ -21,7 +22,8 @@ from . import connector
 
 
 @tx.atomic
-def github_register(username:str, email:str, full_name:str, github_id:int, bio:str, token:str=None):
+def github_register(username:str, email:str, full_name:str, github_id:int, bio:str,
+                    email_verified:bool, token:str=None):
     """
     Register a new user from github.
 
@@ -38,6 +40,12 @@ def github_register(username:str, email:str, full_name:str, github_id:int, bio:s
         auth_data = auth_data_model.objects.get(key="github", value=github_id)
         user = auth_data.user
     except auth_data_model.DoesNotExist:
+        if not email or not email_verified:
+            raise AuthenticationFailed(
+                _("Unable to authenticate with GitHub."),
+                code="sso_authentication_failed",
+            )
+
         try:
             # Is a user with the same email as the github user?
             user = user_model.objects.get(email=email)
@@ -70,13 +78,14 @@ def github_login_func(request):
     code = request.DATA.get('code', None)
     token = request.DATA.get('token', None)
 
-    email, user_info = connector.me(code)
+    email, email_verified, user_info = connector.me(code)
 
     user = github_register(username=user_info.username,
                            email=email,
                            full_name=user_info.full_name,
                            github_id=user_info.id,
                            bio=user_info.bio,
+                           email_verified=email_verified,
                            token=token)
     data = make_auth_response_data(user)
     return data
