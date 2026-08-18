@@ -108,16 +108,22 @@ def test_get_user_emails_success():
     with patch("taiga_contrib_github_auth.connector.requests") as m_requests:
         m_requests.get.return_value = m_response = Mock()
         m_response.status_code = 200
-        m_response.json.return_value = [{"email": "darth-vader@bttf.com", "primary": False},
-                                        {"email": "mmcfly@bttf.com", "primary": True}]
+        m_response.json.return_value = [{"email": "darth-vader@bttf.com",
+                                         "primary": False,
+                                         "verified": False},
+                                        {"email": "mmcfly@bttf.com",
+                                         "primary": True,
+                                         "verified": True}]
 
         emails = github.get_user_emails(github.HEADERS)
 
         assert len(emails) == 2
         assert emails[0].email == "darth-vader@bttf.com"
         assert not emails[0].is_primary
+        assert not emails[0].is_verified
         assert emails[1].email == "mmcfly@bttf.com"
         assert emails[1].is_primary
+        assert emails[1].is_verified
         m_requests.get.assert_called_once_with("https://api.github.com/user/emails",
                                                headers=github.HEADERS)
 
@@ -144,12 +150,17 @@ def test_me():
                                                       username="mmcfly",
                                                       full_name="martin seamus mcfly",
                                                       bio="time traveler")
-        m_get_user_emails.return_value = [github.Email(email="darth-vader@bttf.com", is_primary=False),
-                                          github.Email(email="mmcfly@bttf.com", is_primary=True)]
+        m_get_user_emails.return_value = [github.Email(email="darth-vader@bttf.com",
+                                                       is_primary=False,
+                                                       is_verified=True),
+                                          github.Email(email="mmcfly@bttf.com",
+                                                       is_primary=True,
+                                                       is_verified=True)]
 
-        email, user = github.me("**access-code**")
+        email, email_verified, user = github.me("**access-code**")
 
         assert email == "mmcfly@bttf.com"
+        assert email_verified
         assert user.id == 1955
         assert user.username == "mmcfly"
         assert user.full_name == "martin seamus mcfly"

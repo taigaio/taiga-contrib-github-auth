@@ -46,7 +46,7 @@ HEADERS = {"Accept": "application/json",}
 
 AuthInfo = namedtuple("AuthInfo", ["access_token"])
 User = namedtuple("User", ["id", "username", "full_name", "bio"])
-Email = namedtuple("Email", ["email", "is_primary"])
+Email = namedtuple("Email", ["email", "is_primary", "is_verified"])
 
 
 ######################################################
@@ -137,7 +137,9 @@ def get_user_emails(headers:dict=HEADERS) -> list:
     """
     url = _build_url("user", "emails")
     data = _get(url, headers=headers)
-    return [Email(email=e.get("email", None), is_primary=e.get("primary", False))
+    return [Email(email=e.get("email", None),
+                  is_primary=e.get("primary", False),
+                  is_verified=e.get("verified", False))
                     for e in data]
 
 
@@ -158,5 +160,5 @@ def me(access_code:str) -> tuple:
     emails = get_user_emails(headers=headers)
 
     primary_email = next(filter(lambda x: x.is_primary, emails))
-    return primary_email.email, user
+    return primary_email.email, primary_email.is_verified, user
 
